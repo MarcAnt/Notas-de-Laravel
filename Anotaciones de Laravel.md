@@ -134,7 +134,7 @@ class Post extends Model {
     protected $primaryKey = "mi_otro_id_con_primary_key";
     public $incrementing = false; //Evita el valor a incrementar
     protected $keyType = "string"; //Para colocar el tipo strin el primary key
-    protected $timestamp = false; //Para no usar los timestamp 
+    protected $timestamp = false; //Para no usar los timestamp
 }
 ```
 
@@ -211,7 +211,8 @@ Modelo: User -> Método: hasMany
 
 ### Resolviendo el problema de 1 + N
 
-https://styde.net/instalar-barra-de-debug-en-laravel/ Revisar el tutorial para implementar el debugbar
+[Link de instalar la barra de debug](https://styde.net/instalar-barra-de-debug-en-laravel/)
+ Revisar el tutorial para implementar el debugbar
 
 ```terminal
 composer require barryvdh/laravel-debugbar --dev
@@ -295,5 +296,18 @@ php artisan vendor:publish y luego seleccionar Tag: laravel-notifications
         Route::resource('users', 'UsersController');
 
     });
+
+```
+
+### Mostrar resultados en la paginación 
+
+```php
+    # ordernar con un parámetro dinámico
+    # la variable sort recibe un valor tipo sort=desc o sort=asc
+    public function index() {
+        $users = User::orderBy('created_at', request('sort'))->paginate(10);
+    }
+
+    {{$users->appends(['sort' => request('sort')])->links()}}
 
 ```
